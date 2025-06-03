@@ -121,6 +121,19 @@ docker push <your-ecr-uri>
   
   Access dashboard via public IP.
 
+📊 Dashboard Preview
+The dashboard includes:
+
+Pie chart showing overall sentiment distribution
+
+Table displaying the latest news headlines with sentiment labels
+
+Date filter to analyze sentiment trends over time
+
+Real-time updates sourced directly from Amazon RDS
+
+Sentiment categories are color-coded for quick visual interpretation:
+🔴 Negative (Red), 🟢 Neutral (Green), 🔵 Positive (Blue).
 
 
 
