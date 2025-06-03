@@ -102,38 +102,69 @@ Example Output:
   ```bash
   docker run -p port:port streamlit-news-dashboard
 
-# 🔹 6. Push to ECR
-
-Tag and push your image:
-
-```bash
-aws ecr create-repository --repository-name streamlit-news
-docker tag streamlit-news-dashboard:latest <your-ecr-uri>
-docker push <your-ecr-uri>
-
-# 🔹 7. Deploy to ECS Fargate
-
-  Create ECS Task Definition with ECR image.
+# 🔹 6. ECR + ECS Fargate
   
-  Set up ECS Service (Fargate) with public subnet.
+    --Push to ECR:
+    
+    aws ecr create-repository --repository-name streamlit-news
+    
+    docker tag streamlit-news:latest <your-ecr-uri>
+    
+    docker push <your-ecr-uri>
+    
+    --Deploying to ECS Fargate
+      
+    To ensure scalability and seamless hosting, we deploy our Streamlit-based dashboard using Amazon ECS Fargate. This serverless container service eliminates the need to manage servers and 
+    simplifies deployment.
+      
+      🚀 Deployment Steps:
+      
+      ✅ Create an ECS Task Definition using the Docker image pushed to Amazon ECR.
+      
+      ✅ Set up an ECS Service using Fargate within a public subnet.
+      
+      ✅ Map your custom port (e.g., 8501) to allow external access to the application.
+      
+      ✅ Access the dashboard via the public IP address assigned by ECS.
+
+
+# 📊 Dashboard Preview
   
-  Map port [your own port].
+  Displays live headlines and sentiment.
   
-  Access dashboard via public IP.
+  Uses real-time data from RDS.
+  
+  Accessible via browser (ECS public IP).
+  
+  Sentiment categories are color-coded for quick visual interpretation:
+     🔴 Negative (Red), 🟢 Neutral (Green), 🔵 Positive (Blue).
 
-📊 Dashboard Preview
-The dashboard includes:
+ [Dashboard](dashboard.png) :This dashboard offers a dynamic and user-friendly interface for analyzing news trends, and it's fully accessible from anywhere via the public IP of the deployed 
+ ECS service.
 
-Pie chart showing overall sentiment distribution
 
-Table displaying the latest news headlines with sentiment labels
 
-Date filter to analyze sentiment trends over time
+## 🛡️ Security Notes
 
-Real-time updates sourced directly from Amazon RDS
+Never expose AWS credentials or API keys in public repositories.
+Use Secrets Manager, Lambda environment variables, or parameter store for sensitive data.
+Lock down RDS and S3 access using IAM roles and security groups.
 
-Sentiment categories are color-coded for quick visual interpretation:
-🔴 Negative (Red), 🟢 Neutral (Green), 🔵 Positive (Blue).
+
+## 📐 Architecture Diagram
+
+![Architecture](architecture.png)
+
+
+# ✅ Conclusion
+
+This project demonstrates how to build a cloud-native, serverless, and containerized sentiment analysis pipeline using AWS. It combines automated data ingestion, NLP-based transformation, and intuitive visualization through Streamlit on ECS. This architecture is highly scalable, cost-efficient, and suited for real-time analytics workloads.
+
+
+
+
+
+
 
 
 
